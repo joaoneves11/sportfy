@@ -17,7 +17,7 @@ export const events = [
     localizacao: "Quadra Interta - 2",
     numero_de_pessoas: 10,
     descricao: "Baska dos guri",
-    icon:  "🏀",
+    icon:  "⛹️‍♀️",
   },
   {
     _id: "67071b94afdcc37647913e44",
