@@ -10,13 +10,14 @@ export const Container = styled(SafeAreaView)`
   background-color: #fafafa;
 `;
 
-export const EventsContainer = styled.View`
-  flex: 1;
+export const CategoriesContainer = styled.View`
   margin-top: 34px;
 `;
 
-export const NewEventContainer = styled.View`
+export const EventsContainer = styled.View`
   height: 25px;
+  flex: 1;
+
 `;
 
 export const Footer = styled.View`
@@ -24,9 +25,10 @@ export const Footer = styled.View`
   bottom: 0;
   width: 100%;
   height: 79px;
-  background-color: #fafafa
+  background-color: #fafafa;
+  padding: 16px 24px;
 `;
 
 export const FooterContainer = styled(SafeAreaView)`
   flex: 1;
-`;
+  `;

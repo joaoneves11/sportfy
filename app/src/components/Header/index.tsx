@@ -5,7 +5,7 @@ import { Container } from "./styles";
 export function Header() {
   return (
     <Container>
-      <Text size={24} weight="700">
+      <Text size={24} weight="700" color="#9B40BF">
         SPORT
         <Text size={24}>FY</Text>
       </Text>

@@ -4,6 +4,9 @@
     "strict": true,
     "module": "ESNext",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-native", // Adiciona suporte para JSX no React Native
+    "skipLibCheck": true, // Opcional: Ignora a verificação de bibliotecas para melhorar a velocidade de compilação
+    "forceConsistentCasingInFileNames": true // Garante a consistência de maiúsculas e minúsculas nos nomes dos arquivos
   }
 }

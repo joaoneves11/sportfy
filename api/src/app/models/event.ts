@@ -1,33 +1,34 @@
 import { model, Schema } from 'mongoose';
 
 export const Event = model('Event', new Schema({
-	tipo: {
+	name:  {
 		type: String,
 		required: true,
 	},
-	data: {
+	date_time: {
 		type: Date,
 		required: true,
 	},
-	horario:  {
+	location:  {
 		type: String,
 		required: true,
 	},
-	localizacao: {
-		type: String,
-		required: true,
-	},
-	numero_de_pessoas: {
+	number_people: {
 		type: Number,
 		required: true,
 	},
-	descricao: {
+	imagePath: {
 		type: String,
 		required: true,
 	},
-	icon:{
+	description: {
 		type: String,
 		required: true,
+	},
+	category: {
+		type: Schema.Types.ObjectId,
+		required: true,
+		ref: 'Category'
 	}
 }));
 

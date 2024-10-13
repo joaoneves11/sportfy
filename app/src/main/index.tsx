@@ -1,10 +1,12 @@
 import { Text } from '../components/Text';
 
-import { Container, EventsContainer, NewEventContainer, Footer, FooterContainer } from './styles';
+import { Container, CategoriesContainer, EventsContainer, Footer, FooterContainer } from './styles';
 
 import { Header } from '../components/Header';
+import { Categories } from '../components/Categories';
 import { Events } from '../components/Events';
-import { NewEvent } from '../components/NewEvent';
+import { Button } from '../components/Button';
+import { TableModal } from '../components/TableModal';
 
 export function Main(){
   return (
@@ -12,19 +14,21 @@ export function Main(){
       <Container>
         <Header />
 
-          <EventsContainer>
-            <Events></Events>
-          </EventsContainer>
+          <CategoriesContainer>
+            <Categories></Categories>
+          </CategoriesContainer>
 
-          <NewEventContainer>
-            <NewEvent></NewEvent>
-          </NewEventContainer>
+          <EventsContainer>
+            <Events/>
+          </EventsContainer>
 
       </Container>
 
         <Footer>
           <FooterContainer>
-
+            <Button onPress={() => alert('novo pedido')}>
+              Novo Evento
+            </Button>
           </FooterContainer>
         </Footer>
 

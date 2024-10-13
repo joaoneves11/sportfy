@@ -1,17 +1,21 @@
 import styled from "styled-components/native";
 
 export const Event = styled.View`
+  flex-direction: row;
   align-items: center;
-  margin-left: 24px;
 `;
-export const Icon = styled.View`
-  background: #fff;
-  width: 44px;
-  height: 44px;
-  border-radius: 22px;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 8px;
+export const Image = styled.Image`
+  width: 120px;
+  height: 96px;
+`;
+export const EventDetails = styled.View`
+  margin-left: 16px;
+  flex: 1;
 `;
 
-//no reactnative por padrão é flex e column
+export const Separator = styled.View`
+  width: 100%;
+  height: 1px;
+  background-color: #e6e6e6;
+  margin: 24px 0;
+  `;
