@@ -17,11 +17,15 @@ export const Event = model('Event', new Schema({
 		type: Number,
 		required: true,
 	},
-	imagePath: {
+	// imagePath: {
+	// 	type: String,
+	// 	required: true,
+	// },
+	description: {
 		type: String,
 		required: true,
 	},
-	description: {
+	icon:{
 		type: String,
 		required: true,
 	},

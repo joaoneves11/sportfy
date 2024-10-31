@@ -8,6 +8,7 @@ import {createCategory} from './app/useCases/category/createCategory';
 import {createEvents} from './app/useCases/events/createEvent';
 import {deleteEvents} from './app/useCases/events/deleteEvents';
 import { listEventsByCategories } from './app/useCases/category/listEventsByCategories';
+import { deleteCategories } from './app/useCases/category/deleteCategory';
 
 export const router = Router();
 
@@ -28,9 +29,8 @@ router.get('/categories', listCategories);
 router.post('/categories', createCategory);
 
 //delete categories
-router.delete('/categories/:id', (req, res) => {
-	res.send('delete categories // OK');
-});
+router.delete('/categories/:id', deleteCategories);
+
 
 
 //list events

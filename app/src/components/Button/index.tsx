@@ -5,6 +5,8 @@ import { Container } from "./styles";
 interface ButtonProps {
   children: string;
   onPress: () => void;
+  disabled?: boolean;
+  loading?: boolean
 }
 
 export function Button({ children, onPress }: ButtonProps) {

@@ -6,10 +6,10 @@ import { Event} from '../../models/event';
 export async function createEvents(req: Request, res: Response) {
 
 	try{
-		const imagePath = req.file?.filename;
-		const { name, date_time, location, number_people, description, category} = req.body;
+		// const imagePath = req.file?.filename;
+		const { name, date_time, location, number_people, description, icon, category} = req.body;
 
-		const event = await Event.create({ name, date_time, location, number_people,  imagePath, description, category});
+		const event = await Event.create({ name, date_time, location, number_people,  description, icon, category});
 
 		//201: created
 		//200: ok
