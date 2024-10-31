@@ -6,9 +6,9 @@ import { Categories } from '../components/Categories';
 import { Events } from '../components/Events';
 import { Button } from '../components/Button';
 import axios from 'axios';
-import { Event } from '../types/Event'; // Certifique-se de importar o tipo Event corretamente
-import { Category } from '../types/Category'; // Certifique-se de importar o tipo Category corretamente
-import { CreateEventModal } from '../components/EventModal/CreateEventModal'; // Importe o componente CreateEventModal
+import { Event } from '../types/Event';
+import { Category } from '../types/Category';
+import { CreateEventModal } from '../components/EventModal/CreateEventModal';
 
 export function Main() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -21,8 +21,8 @@ export function Main() {
     const fetchData = async () => {
       try {
         const [categoriesResponse, eventsResponse] = await Promise.all([
-          axios.get('http://192.168.1.15:3001/categories'), // Atualize a URL da API
-          axios.get('http://192.168.1.15:3001/events') // Atualize a URL da API
+          axios.get('http://192.168.1.15:3001/categories'),
+          axios.get('http://192.168.1.15:3001/events')
         ]);
         setCategories(categoriesResponse.data);
         setEvents(eventsResponse.data);
@@ -38,8 +38,8 @@ export function Main() {
 
   async function handleSelectCategory(categoryId: string) {
     const route = !categoryId
-      ? 'http://192.168.1.15:3001/events' // Atualize a URL da API
-      : `http://192.168.1.15:3001/categories/${categoryId}/events`; // Atualize a URL da API
+      ? 'http://192.168.1.15:3001/events'
+      : `http://192.168.1.15:3001/categories/${categoryId}/events`;
 
     setIsLoadingEvents(true);
     try {
@@ -54,7 +54,7 @@ export function Main() {
 
   const handleCreateEvent = async (newEvent: Partial<Event>) => {
     try {
-      const createdEvent = await axios.post('http://192.168.1.15:3001/events', newEvent); // Atualize a URL da API
+      const createdEvent = await axios.post('http://192.168.1.15:3001/events', newEvent);
       setEvents((prevEvents) => [...prevEvents, createdEvent.data]);
     } catch (error) {
       console.error('Erro ao criar evento:', error);
@@ -111,7 +111,7 @@ export function Main() {
             visible={isCreateEventModalVisible}
             onClose={() => setIsCreateEventModalVisible(false)}
             onCreate={handleCreateEvent}
-            categories={categories} // Passe as categorias para o modal
+            categories={categories}
           />
         </FooterContainer>
       </Footer>

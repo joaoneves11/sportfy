@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Modal, View, TextInput, Button, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Picker } from '@react-native-picker/picker'; // Importe o Picker do pacote correto
-import { Event } from '../../types/Event'; // Certifique-se de importar o tipo Event corretamente
-import { Category } from '../../types/Category'; // Certifique-se de importar o tipo Category corretamente
+import { Picker } from '@react-native-picker/picker';
+import { Event } from '../../types/Event';
+import { Category } from '../../types/Category';
 
 interface CreateEventModalProps {
   visible: boolean;
   onClose: () => void;
   onCreate: (event: Partial<Event>) => void;
-  categories: Category[]; // Adicione as categorias como props
+  categories: Category[];
 }
 
 export function CreateEventModal({ visible, onClose, onCreate, categories }: CreateEventModalProps) {
@@ -19,12 +19,12 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
   const [location, setLocation] = useState('');
   const [numberPeople, setNumberPeople] = useState(10);
   const [description, setDescription] = useState('');
-  const [category, setCategory] = useState(''); // Adicione o campo category
+  const [category, setCategory] = useState('');
 
   const onChangeDate = (event: any, selectedDate: any) => {
     if (selectedDate) {
       setDate(selectedDate);
-      setShowDatePicker(false); // Feche o DateTimePicker após selecionar a data
+      setShowDatePicker(false);
     }
   };
 
@@ -32,12 +32,12 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
     const selectedCategory = categories.find(cat => cat._id === category);
     const newEvent: Partial<Event> = {
       name,
-      icon: selectedCategory?.icon, // Use o ícone da categoria selecionada
+      icon: selectedCategory?.icon,
       date_time: date,
       location,
       number_people: numberPeople,
       description,
-      category, // Adicione o campo category
+      category,
     };
     onCreate(newEvent);
     onClose();
@@ -75,7 +75,7 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
           />
           <Picker
             selectedValue={category}
-            onValueChange={(itemValue: string) => setCategory(itemValue)} // Especifique o tipo do parâmetro
+            onValueChange={(itemValue: string) => setCategory(itemValue)}
             style={styles.input}
           >
             {categories.map((cat) => (
