@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, View, TextInput, Button, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { Modal, View, TextInput, Button, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import { Event } from '../../types/Event';
@@ -24,11 +24,23 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
   const onChangeDate = (event: any, selectedDate: any) => {
     if (selectedDate) {
       setDate(selectedDate);
-      setShowDatePicker(false);
     }
+    // setShowDatePicker(false); // Feche o DateTimePicker após selecionar a data
+  };
+
+  const validateFields = () => {
+    if (!name || !location || !description || !category) {
+      Alert.alert('Erro ao criar evento', 'Por favor, preencha todos os campos.');
+      return false;
+    }
+    return true;
   };
 
   const handleCreate = () => {
+    if (!validateFields()) {
+      return;
+    }
+
     const selectedCategory = categories.find(cat => cat._id === category);
     const newEvent: Partial<Event> = {
       name,
@@ -48,18 +60,21 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
       <View style={styles.overlay}>
         <View style={styles.modalContainer}>
           <Text style={styles.modalTitle}>Create Event</Text>
+          <Text style={styles.label}>Event Name</Text>
           <TextInput
             placeholder="Event Name"
             value={name}
             onChangeText={setName}
             style={styles.input}
           />
+          <Text style={styles.label}>Location</Text>
           <TextInput
             placeholder="Location"
             value={location}
             onChangeText={setLocation}
             style={styles.input}
           />
+          <Text style={styles.label}>Number of People</Text>
           <TextInput
             placeholder="Number of People"
             value={numberPeople.toString()}
@@ -67,12 +82,14 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
             keyboardType="numeric"
             style={styles.input}
           />
+          <Text style={styles.label}>Description</Text>
           <TextInput
             placeholder="Description"
             value={description}
             onChangeText={setDescription}
             style={styles.input}
           />
+          <Text style={styles.label}>Category</Text>
           <Picker
             selectedValue={category}
             onValueChange={(itemValue: string) => setCategory(itemValue)}
@@ -124,10 +141,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
+  label: {
+    alignSelf: 'flex-start',
+    marginBottom: 5,
+    marginTop: 10,
+    fontWeight: 'bold',
+  },
   input: {
     width: '100%',
     padding: 10,
-    marginVertical: 10,
+    marginVertical: 5,
     backgroundColor: '#f0f0f0',
     borderRadius: 5,
   },
