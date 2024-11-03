@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, View, TextInput, Button, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
@@ -14,13 +14,32 @@ interface CreateEventModalProps {
 
 export function CreateEventModal({ visible, onClose, onCreate, categories }: CreateEventModalProps) {
   const [date, setDate] = useState(new Date());
+
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
-  const [numberPeople, setNumberPeople] = useState(10);
+  const [numberPeople, setNumberPeople] = useState(0);
   const [description, setDescription] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState(categories.length > 0 ? categories[0]._id : '');
 
+  useEffect(() => {
+    if (categories.length > 0 && category === '') {
+      setCategory(categories[0]._id);
+    }
+  }, [categories]);
+
+  useEffect(() => {
+    if (!visible) {
+      // Reset fields when modal is closed
+      setName('');
+      setLocation('');
+      setNumberPeople(0);
+      setDescription('');
+      setCategory('');
+      setDate(new Date());
+      setShowDatePicker(false);
+    }
+  }, [visible]);
   const onChangeDate = (event: any, selectedDate: any) => {
     if (selectedDate) {
       setDate(selectedDate);
@@ -29,10 +48,17 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
   };
 
   const validateFields = () => {
-    if (!name || !location || !description || !category) {
+    if (!name || !location || !description || !category || !numberPeople) {
       Alert.alert('Erro ao criar evento', 'Por favor, preencha todos os campos.');
       return false;
     }
+
+    const now = new Date();
+    if (!date || date <= now) {
+      Alert.alert('Erro ao criar evento', 'Por favor, selecione uma data válida no futuro.');
+      return false;
+    }
+
     return true;
   };
 
@@ -59,37 +85,37 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
     <Modal visible={visible} transparent animationType="slide">
       <View style={styles.overlay}>
         <View style={styles.modalContainer}>
-          <Text style={styles.modalTitle}>Create Event</Text>
-          <Text style={styles.label}>Event Name</Text>
+          <Text style={styles.modalTitle}>Criar eventos esportivos</Text>
+          <Text style={styles.label}>Nome do Evento</Text>
           <TextInput
-            placeholder="Event Name"
+            placeholder="Nome do Evento"
             value={name}
             onChangeText={setName}
             style={styles.input}
           />
-          <Text style={styles.label}>Location</Text>
+          <Text style={styles.label}>Localização</Text>
           <TextInput
-            placeholder="Location"
+            placeholder="Localização"
             value={location}
             onChangeText={setLocation}
             style={styles.input}
           />
-          <Text style={styles.label}>Number of People</Text>
+          <Text style={styles.label}>Número de Pessoas</Text>
           <TextInput
-            placeholder="Number of People"
+            placeholder="Número de Pessoas"
             value={numberPeople.toString()}
             onChangeText={(text) => setNumberPeople(Number(text))}
             keyboardType="numeric"
             style={styles.input}
           />
-          <Text style={styles.label}>Description</Text>
+          <Text style={styles.label}>Descrição do Evento</Text>
           <TextInput
-            placeholder="Description"
+            placeholder="Descrição"
             value={description}
             onChangeText={setDescription}
             style={styles.input}
           />
-          <Text style={styles.label}>Category</Text>
+          <Text style={styles.label}>Categoria</Text>
           <Picker
             selectedValue={category}
             onValueChange={(itemValue: string) => setCategory(itemValue)}

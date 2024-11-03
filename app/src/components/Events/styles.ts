@@ -35,3 +35,8 @@ export const Separator = styled.View`
   elevation: 2;
 `;
 
+export const EvnetInfoModalButton = styled.TouchableOpacity`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+`;

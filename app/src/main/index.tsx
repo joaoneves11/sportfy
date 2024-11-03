@@ -6,9 +6,9 @@ import { Categories } from '../components/Categories';
 import { Events } from '../components/Events';
 import { Button } from '../components/Button';
 import axios from 'axios';
-import { Event } from '../types/Event'; // Certifique-se de importar o tipo Event corretamente
-import { Category } from '../types/Category'; // Certifique-se de importar o tipo Category corretamente
-import { CreateEventModal } from '../components/EventModal/CreateEventModal'; // Importe o componente CreateEventModal
+import { Event } from '../types/Event';
+import { Category } from '../types/Category';
+import { CreateEventModal } from '../components/EventModal/CreateEventModal';
 import { api } from '../utils/api';
 
 export function Main() {
@@ -55,7 +55,7 @@ export function Main() {
 
   const handleCreateEvent = async (newEvent: Partial<Event>) => {
     try {
-      const createdEvent = await axios.post('http://192.168.100.122:3001/events', newEvent); // Atualize a URL da API
+      const createdEvent = await axios.post('http://192.168.100.122:3001/events', newEvent);
       setEvents((prevEvents) => [...prevEvents, createdEvent.data]);
     } catch (error) {
       console.error('Erro ao criar evento:', error);
@@ -112,7 +112,7 @@ export function Main() {
             visible={isCreateEventModalVisible}
             onClose={() => setIsCreateEventModalVisible(false)}
             onCreate={handleCreateEvent}
-            categories={categories} // Passe as categorias para o modal
+            categories={categories}
           />
         </FooterContainer>
       </Footer>
