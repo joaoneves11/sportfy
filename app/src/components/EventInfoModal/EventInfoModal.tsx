@@ -2,11 +2,12 @@ import {FlatList, Modal} from 'react-native';
 import { Text } from '../Text';
 import { Event } from '../../types/Event';
 import { Image } from '../Events/styles';
-import { CloseButton, Header, InformationContainer, InformationContainerDetails, ModalBody, InformationItem, InformationText } from './styles';
+import { CloseButton, Header, InformationContainer, InformationContainerDetails, ModalBody, InformationItem, InformationText, ButtonItem } from './styles';
 import { Close } from '../Icons/Close';
 import { format } from 'date-fns';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Category } from '../../types/Category';
+import { Button } from '../../components/Button';
 
 import { ptBR } from 'date-fns/locale';
 
@@ -49,23 +50,29 @@ export function EventInfoModal({visible, onClose, event} : EventInfoModalProps){
           <Text weight="600" color="#666">Informações sobre o evento</Text>
 
           <InformationContainerDetails>
-          <InformationItem>
+          {/* <InformationItem>
             {/* <MaterialIcons name="category" size={24} color="#666" />
             <InformationText>{event.category}</InformationText> */}
-          </InformationItem>
+          {/* </InformationItem> */}
           <InformationItem>
             <MaterialIcons name="location-on" size={24} color="#666" />
-            <InformationText>{event.location}</InformationText>
+            <InformationText>Local: {event.location}</InformationText>
           </InformationItem>
           <InformationItem>
             <MaterialIcons name="people" size={24} color="#666" />
-            <InformationText>{event.number_people} pessoas</InformationText>
+            <InformationText> Número de Participantes: {event.number_people} pessoas</InformationText>
           </InformationItem>
           <InformationItem>
             <MaterialIcons name="person" size={24} color="#666" />
             <InformationText>Organizador: João</InformationText>
           </InformationItem>
-        </InformationContainerDetails>
+
+          <ButtonItem>
+              <Button onPress={ () => alert("inscrito ou não ")} >
+                INSCREVA-SE
+              </Button>
+          </ButtonItem>
+            </InformationContainerDetails>
 
 {/* arrumar organizador depois */}
 

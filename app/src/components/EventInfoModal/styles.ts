@@ -42,9 +42,16 @@ export const InformationItem = styled.View`
     flex-direction: row;
     align-items: center;
     margin-top: 8px;
+    border: 1px solid rgba(204,204,204, 0.3);
+    border-radius: 8px;
+    padding: 14px;
 `;
 
 export const InformationText = styled.Text`
     color: #666;
     margin-left: 8px;
+`;
+
+export const ButtonItem = styled.View`
+  margin-top: 15px;
 `;

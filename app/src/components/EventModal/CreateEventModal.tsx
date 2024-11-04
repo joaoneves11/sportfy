@@ -4,6 +4,9 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import { Event } from '../../types/Event';
 import { Category } from '../../types/Category';
+import { Close } from '../Icons/Close';
+import styled from 'styled-components/native';
+import { CloseButton, styles } from './style';
 
 interface CreateEventModalProps {
   visible: boolean;
@@ -77,14 +80,24 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
       description,
       category,
     };
+    Alert.alert('Evento criado com sucesso', '');
     onCreate(newEvent);
     onClose();
   };
 
   return (
-    <Modal visible={visible} transparent animationType="slide">
+    <Modal
+    visible={visible}
+     transparent
+     animationType="slide"
+     >
+
       <View style={styles.overlay}>
+
         <View style={styles.modalContainer}>
+        <CloseButton onPress={onClose}>
+            <Close></Close>
+        </CloseButton>
           <Text style={styles.modalTitle}>Criar eventos esportivos</Text>
           <Text style={styles.label}>Nome do Evento</Text>
           <TextInput
@@ -125,7 +138,7 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
               <Picker.Item key={cat._id} label={cat.name} value={cat._id} />
             ))}
           </Picker>
-          <Button title="Pick Date and Time" onPress={() => setShowDatePicker(true)} />
+          <Button title="Escolher dia e horário" onPress={() => setShowDatePicker(true)} />
           {showDatePicker && (
             <DateTimePicker
               value={date}
@@ -136,10 +149,10 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
           )}
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={[styles.button, styles.buttonClose]} onPress={onClose}>
-              <Text style={styles.buttonText}>Close</Text>
+              <Text style={styles.buttonText}>Sair</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={handleCreate}>
-              <Text style={styles.buttonText}>Create Event</Text>
+              <Text style={styles.buttonText}>Criar Evento</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -148,54 +161,3 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
   );
 }
 
-const styles = StyleSheet.create({
-  overlay: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContainer: {
-    width: '80%',
-    padding: 20,
-    backgroundColor: 'white',
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  label: {
-    alignSelf: 'flex-start',
-    marginBottom: 5,
-    marginTop: 10,
-    fontWeight: 'bold',
-  },
-  input: {
-    width: '100%',
-    padding: 10,
-    marginVertical: 5,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 5,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
-  },
-  button: {
-    padding: 10,
-    backgroundColor: '#9B40BF',
-    borderRadius: 5,
-    marginHorizontal: 10,
-  },
-  buttonClose: {
-    backgroundColor: '#ccc',
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-});

@@ -55,7 +55,7 @@ export function Main() {
 
   const handleCreateEvent = async (newEvent: Partial<Event>) => {
     try {
-      const createdEvent = await axios.post('http://192.168.100.122:3001/events', newEvent);
+      const createdEvent = await axios.post('http://192.168.1.7:3001/events', newEvent);
       setEvents((prevEvents) => [...prevEvents, createdEvent.data]);
     } catch (error) {
       console.error('Erro ao criar evento:', error);

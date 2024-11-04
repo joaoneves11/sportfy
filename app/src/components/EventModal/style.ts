@@ -1,36 +1,64 @@
-// CreateEventModalStyles.ts
 import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
 
 export const styles = StyleSheet.create({
-  modalContainer: {
+  overlay: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  modalContent: {
-    width: '100%',
+  modalContainer: {
+    width: '90%',
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     borderRadius: 10,
+    alignItems: 'center',
   },
   modalTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 15,
-    textAlign: 'center',
+    marginBottom: 20,
+  },
+  label: {
+    alignSelf: 'flex-start',
+    marginBottom: 5,
+    marginTop: 10,
+    fontWeight: 'bold',
   },
   input: {
-    height: 50,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
+    width: '100%',
     padding: 10,
-    marginBottom: 15,
+    marginVertical: 5,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 5,
   },
-  actionButton: {
-    marginTop: 10,
-    marginBottom: 5,
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+  button: {
+    padding: 10,
+    backgroundColor: '#9B40BF',
+    borderRadius: 5,
+    marginHorizontal: 10,
+  },
+  buttonClose: {
+    backgroundColor: '#ccc',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
+
+
+export const CloseButton =  styled.TouchableOpacity`
+  background: rgba(0,0,0,0.5);
+  border-radius: 16px;
+  position: absolute;
+  right: 24px;
+  top: 20px;
+`;
+
