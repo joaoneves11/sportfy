@@ -4,19 +4,19 @@ import { Response } from "express";
 import { Event} from '../../models/event';
 
 export async function createEvents(req: Request, res: Response) {
-	const { name, icon, date_time, location, number_people, description, category, user_id } = req.body;
+const { name, icon, date_time, location, number_people, description, category, user_id } = req.body;
 
-	try {
-	  const event = await Event.create({
-		name,
-		icon,
-		date_time,
-		location,
-		number_people,
-		description,
-		category,
-		user_id,
-	  });
+  try {
+    const event = await Event.create({
+      name,
+      icon,
+      date_time,
+      location,
+      number_people,
+      description,
+      category,
+      user_id,
+    });
 
 		//201: created
 		//200: ok

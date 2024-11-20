@@ -42,6 +42,6 @@ export const Event = model('Event', new Schema({
 	  subscribers: [{
 		type: Schema.Types.ObjectId,
 		ref: 'User',
-	  }],
+	  }]
 }));
 

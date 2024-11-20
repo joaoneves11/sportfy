@@ -14,6 +14,9 @@ import { listEventsByUser } from './app/useCases/events/listEventsByUser';
 import { getUserById } from './app/useCases/users/getUserById';
 import { subscribeToEvent } from './app/useCases/events/subscribeToEvent';
 import { getSubscribedEvents } from './app/useCases/events/getSubscribedEvents';
+import { unsubscribeToEvent } from './app/useCases/events/unsubscribeToEvent';
+import { getEventSubscribers } from './app/useCases/events/getEventSubscribers';
+import { getEventById } from './app/useCases/events/getEventById';
 
 export const router = Router();
 
@@ -46,6 +49,10 @@ router.post('/events', upload.single('image'), createEvents);
 // Delete events
 router.delete('/events/:id', deleteEvents);
 
+//get events by id
+router.get('/events/:eventId', getEventById);
+
+
 // Get events by category
 router.get('/categories/:categoryId/events', listEventsByCategories);
 
@@ -55,12 +62,17 @@ router.get('/users/:userId/events', listEventsByUser);
 // Get user by ID
 router.get('/users/:userId', getUserById);
 
-// Subscribe to event
+// se inscrever em um event
 router.post('/events/subscribe', subscribeToEvent);
 
-
+//eventos que o usuario está inscrito
 router.get('/users/:userId/subscribed-events', getSubscribedEvents);
 
+//desincrever em um evento
+router.post('/events/unsubscribe', unsubscribeToEvent);
+
+//inscritos no evento
+router.get('/events/:eventId/subscribers', getEventSubscribers);
 
 // User routes
 router.post('/users/register', createUser);
