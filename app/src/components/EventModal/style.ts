@@ -33,6 +33,14 @@ export const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     borderRadius: 5,
   },
+  picker: {
+    width: '100%',
+    padding: 10,
+    marginVertical: 5,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 5,
+    color: 'black',
+  },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -53,12 +61,10 @@ export const styles = StyleSheet.create({
   },
 });
 
-
-export const CloseButton =  styled.TouchableOpacity`
+export const CloseButton = styled.TouchableOpacity`
   background: rgba(0,0,0,0.5);
   border-radius: 16px;
   position: absolute;
   right: 24px;
   top: 20px;
 `;
-

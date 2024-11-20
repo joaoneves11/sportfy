@@ -13,6 +13,8 @@ import { api } from '../../utils/api';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../../App';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { NavBar, NavButton } from '../UsersProfile/styles';
+import { Ionicons } from '@expo/vector-icons';
 
 export function Main() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -104,9 +106,7 @@ export function Main() {
             </CenteredContainer>
           )
         )}
-      </Container>
-
-      <Footer>
+         <Footer>
       <FooterContainer>
         <Button onPress={() => setIsCreateEventModalVisible(true)}>
           Novo Evento
@@ -118,15 +118,20 @@ export function Main() {
           categories={categories}
         />
       </FooterContainer>
+
     </Footer>
-    <View style={styles.navBar}>
-      <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('Main')}>
-        <Text style={styles.navButtonText}>🏠</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate('UserProfile')}>
-        <Text style={styles.navButtonText}>👤</Text>
-      </TouchableOpacity>
-    </View>
+    <NavBar>
+        <NavButton onPress={() => navigation.navigate('Main')}>
+          <Ionicons name="home-outline" size={24} color="#9B40BF" />
+        </NavButton>
+        <NavButton onPress={() => navigation.navigate('UserProfile')}>
+          <Ionicons name="person-outline" size={24} color="#9B40BF" />
+        </NavButton>
+      </NavBar>
+      </Container>
+
+
+
     </>
   );
 }

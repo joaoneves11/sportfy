@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, View, TextInput, Button, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native';
+import { Modal, View, TextInput, Button, Text, Alert, TouchableOpacity, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
 import { Event } from '../../types/Event';
 import { Category } from '../../types/Category';
 import { Close } from '../Icons/Close';
-import styled from 'styled-components/native';
 import { CloseButton, styles } from './style';
 
 interface CreateEventModalProps {
@@ -17,7 +16,6 @@ interface CreateEventModalProps {
 
 export function CreateEventModal({ visible, onClose, onCreate, categories }: CreateEventModalProps) {
   const [date, setDate] = useState(new Date());
-
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
@@ -43,6 +41,7 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
       setShowDatePicker(false);
     }
   }, [visible]);
+
   const onChangeDate = (event: any, selectedDate: any) => {
     if (selectedDate) {
       setDate(selectedDate);
@@ -86,18 +85,12 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
   };
 
   return (
-    <Modal
-    visible={visible}
-     transparent
-     animationType="slide"
-     >
-
+    <Modal visible={visible} transparent animationType="slide">
       <View style={styles.overlay}>
-
         <View style={styles.modalContainer}>
-        <CloseButton onPress={onClose}>
-            <Close></Close>
-        </CloseButton>
+          <CloseButton onPress={onClose}>
+            <Close />
+          </CloseButton>
           <Text style={styles.modalTitle}>Criar eventos esportivos</Text>
           <Text style={styles.label}>Nome do Evento</Text>
           <TextInput
@@ -105,6 +98,7 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
             value={name}
             onChangeText={setName}
             style={styles.input}
+            placeholderTextColor="#888"
           />
           <Text style={styles.label}>Localização</Text>
           <TextInput
@@ -112,6 +106,7 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
             value={location}
             onChangeText={setLocation}
             style={styles.input}
+            placeholderTextColor="#888"
           />
           <Text style={styles.label}>Número de Pessoas</Text>
           <TextInput
@@ -120,6 +115,7 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
             onChangeText={(text) => setNumberPeople(Number(text))}
             keyboardType="numeric"
             style={styles.input}
+            placeholderTextColor="#888"
           />
           <Text style={styles.label}>Descrição do Evento</Text>
           <TextInput
@@ -127,12 +123,14 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
             value={description}
             onChangeText={setDescription}
             style={styles.input}
+            placeholderTextColor="#888"
           />
           <Text style={styles.label}>Categoria</Text>
           <Picker
             selectedValue={category}
             onValueChange={(itemValue: string) => setCategory(itemValue)}
-            style={styles.input}
+            style={styles.picker}
+            itemStyle={pickerStyles.itemStyle}
           >
             {categories.map((cat) => (
               <Picker.Item key={cat._id} label={cat.name} value={cat._id} />
@@ -161,3 +159,8 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
   );
 }
 
+const pickerStyles = StyleSheet.create({
+  itemStyle: {
+    color: 'black',
+  },
+});

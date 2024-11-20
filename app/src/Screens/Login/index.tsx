@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 import { RootStackParamList } from '../../../App';
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
@@ -11,16 +12,46 @@ interface LoginProps {
 }
 
 export function Login({ onLogin }: LoginProps) {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation<LoginScreenNavigationProp>();
 
-  const handleLogin = () => {
-    //  lógica de autenticação
-    if (username === 'admin' && password === 'admin') {
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Erro', 'Por favor, preencha todos os campos');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await axios.post('http://192.168.100.122:3001/users/login', {
+        email,
+        password,
+      });
+
+      console.log('Resposta da API:', response.data);
+
+      const user = response.data;
+
+      if (!user) {
+        throw new Error('Usuário não recebido');
+      }
+
+      Alert.alert('Sucesso', 'Login realizado com sucesso');
       onLogin();
-    } else {
-      Alert.alert('Erro', 'Usuário ou senha inválidos');
+    } catch (error: unknown) {
+      console.error('Erro ao fazer login:', error);
+      if (axios.isAxiosError(error) && error.response && error.response.data && error.response.data.message) {
+        Alert.alert('Erro', error.response.data.message);
+      } else if (error instanceof Error) {
+        Alert.alert('Erro', error.message);
+      } else {
+        Alert.alert('Erro', 'Erro desconhecido ao fazer login');
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,9 +70,11 @@ export function Login({ onLogin }: LoginProps) {
       </View>
       <TextInput
         style={styles.input}
-        placeholder="Usuário"
-        value={username}
-        onChangeText={setUsername}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
       />
       <TextInput
         style={styles.input}
@@ -50,8 +83,12 @@ export function Login({ onLogin }: LoginProps) {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Entrar</Text>
+      <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading}>
+        {loading ? (
+          <ActivityIndicator color="white" />
+        ) : (
+          <Text style={styles.buttonText}>Entrar</Text>
+        )}
       </TouchableOpacity>
       <TouchableOpacity style={styles.signUpButton} onPress={handleSignUp}>
         <Text style={styles.signUpButtonText}>Não tem uma conta? Cadastre-se</Text>

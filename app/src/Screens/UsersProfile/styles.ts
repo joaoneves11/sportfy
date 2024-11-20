@@ -49,7 +49,6 @@ export const EventItem = styled.View`
 export const EventDetails = styled.View`
   margin-left: 10px;
 `;
-
 export const EventTitle = styled.Text`
   font-size: 16px;
   font-weight: bold;
@@ -61,13 +60,13 @@ export const EventDate = styled.Text`
 `;
 
 export const NavBar = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100%;
   position: absolute;
   bottom: 0;
+  left: 0;
+  right: 0;
+  flex-direction: row;
+  justify-content: space-around;
   padding: 10px;
-  background-color: #f0f0f0;
 `;
 
 export const NavButton = styled.TouchableOpacity`
@@ -79,8 +78,20 @@ export const NavButtonText = styled.Text`
 `;
 
 export const HeaderContainer = styled.View`
+  /* Adicione estilos para o HeaderContainer, se necessário */
+`;
+
+export const Footer = styled.View`
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #fafafa;
+  padding: 16px 24px;
+`;
+
+export const FooterContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 30px;
+  width: 100%;
 `;
