@@ -33,6 +33,15 @@ export const Event = model('Event', new Schema({
 		type: Schema.Types.ObjectId,
 		required: true,
 		ref: 'Category'
-	}
+	},
+	user_id: {
+		type: Schema.Types.ObjectId,
+		ref: 'User',
+		required: true,
+	  },
+	  subscribers: [{
+		type: Schema.Types.ObjectId,
+		ref: 'User',
+	  }],
 }));
 

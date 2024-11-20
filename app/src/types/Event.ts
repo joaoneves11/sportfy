@@ -8,4 +8,7 @@ export interface Event {
   number_people: number;
   description: string;
   category: string;
+  user_id: string;
+  subscribers: string[];
+
 }

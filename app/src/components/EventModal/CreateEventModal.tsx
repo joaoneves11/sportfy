@@ -6,6 +6,7 @@ import { Event } from '../../types/Event';
 import { Category } from '../../types/Category';
 import { Close } from '../Icons/Close';
 import { CloseButton, styles } from './style';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface CreateEventModalProps {
   visible: boolean;
@@ -64,8 +65,14 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
     return true;
   };
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
     if (!validateFields()) {
+      return;
+    }
+
+    const userId = await AsyncStorage.getItem('userId');
+    if (!userId) {
+      Alert.alert('Erro', 'Usuário não autenticado');
       return;
     }
 
@@ -78,6 +85,7 @@ export function CreateEventModal({ visible, onClose, onCreate, categories }: Cre
       number_people: numberPeople,
       description,
       category,
+      user_id: userId, // Adiciona o ID do usuário ao evento
     };
     Alert.alert('Evento criado com sucesso', '');
     onCreate(newEvent);

@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityInd
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RootStackParamList } from '../../../App';
 
 type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
@@ -38,6 +39,9 @@ export function Login({ onLogin }: LoginProps) {
       if (!user) {
         throw new Error('Usuário não recebido');
       }
+
+      // Armazenando o ID do usuário
+      await AsyncStorage.setItem('userId', user._id);
 
       Alert.alert('Sucesso', 'Login realizado com sucesso');
       onLogin();
